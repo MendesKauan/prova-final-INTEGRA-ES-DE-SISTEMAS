@@ -7,7 +7,6 @@ import time
 
 app = Flask(__name__)
 
-# Configurações de serviços
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 RABBITMQ_HOST = 'localhost'
@@ -15,14 +14,11 @@ RABBITMQ_PORT = 5672
 RABBITMQ_USER = 'guest'
 RABBITMQ_PASS = 'guest'
 
-# Redis Client
 redis_client = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT, db=0, decode_responses=True)
-CACHE_KEY = 'events_cache' # Chave para o cache no Redis
+CACHE_KEY = 'events_cache'
 
-# Lista local para armazenar eventos (como um backup/cache em memória)
 message_node = []
 
-# Funções de Conexão e Consumo RabbitMQ
 def connect_rabbitmq():
     print("[*] Tentando conectar ao RabbitMQ...")
     credentials = pika.PlainCredentials(RABBITMQ_USER, RABBITMQ_PASS)
